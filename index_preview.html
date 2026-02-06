@@ -776,16 +776,7 @@
             <header className="header">
                 <div className="container header-inner">
                     <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-                        <div style={{
-                            background: 'white',
-                            padding: '8px 15px',
-                            borderRadius: '8px',
-                            boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
-                            display: 'flex',
-                            alignItems: 'center'
-                        }}>
-                            <img src="public/logo_sa.png" className="logo-img" alt="Mvelase" onClick={() => window.scrollTo(0, 0)} style={{ height: '45px' }} />
-                        </div>
+                        <img src="public/logo_new.png" className="logo-img" alt="Mvelase" onClick={() => window.scrollTo(0, 0)} style={{ height: '65px', filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))' }} />
                         <span style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--primary-orange)', letterSpacing: '-0.5px', fontStyle: 'italic' }}>Lets move Mzansi!</span>
                     </div>
                     <nav className="nav-desktop">
@@ -1115,27 +1106,117 @@
 
         const Footer = () => (
             <>
-                {/* Quick CTA Strip */}
-                <div style={{ background: 'var(--primary-orange)', padding: '1rem 0' }}>
-                    <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
-                        <span style={{ color: 'var(--primary-navy)', fontWeight: 800, fontSize: '1.1rem' }}>Need a quick quote?</span>
-                        <div style={{ display: 'flex', gap: '1rem' }}>
-                            <a href="https://wa.me/27743763549" className="btn-primary" style={{ background: 'var(--white)', color: 'var(--primary-orange)', padding: '0.5rem 1.5rem', fontSize: '0.9rem' }}>
-                                Chat on WhatsApp
+                {/* Creative Action Bar */}
+                <div style={{
+                    background: 'linear-gradient(90deg, #000B26 0%, #051433 100%)',
+                    padding: '3rem 0',
+                    borderTop: '4px solid var(--primary-orange)',
+                    position: 'relative',
+                    overflow: 'hidden'
+                }}>
+                    {/* Background Pattern Overlay */}
+                    <div style={{
+                        position: 'absolute',
+                        top: 0, left: 0, right: 0, bottom: 0,
+                        backgroundImage: 'radial-gradient(rgba(255, 69, 0, 0.15) 1px, transparent 1px)',
+                        backgroundSize: '20px 20px',
+                        opacity: 0.5,
+                        pointerEvents: 'none'
+                    }}></div>
+
+                    <div className="container action-bar-inner" style={{ position: 'relative', zIndex: 1 }}>
+                        <div className="action-bar-text">
+                            <span style={{ color: 'var(--white)', fontWeight: 800, fontSize: '2rem', letterSpacing: '-0.5px', display: 'block' }}>
+                                Ready to get moving?
+                            </span>
+                            <span style={{ color: 'rgba(255,255,255,0.6)', fontSize: '1.1rem', marginTop: '0.5rem', maxWidth: '500px', display: 'block' }}>
+                                Get an instant quote or chat with our logistics experts today. Experience the difference.
+                            </span>
+                        </div>
+
+                        <div className="action-bar-buttons">
+                            <a href="https://wa.me/27743763549" className="btn-elite action-bar-btn" style={{
+                                background: 'linear-gradient(135deg, #25D366 0%, #128C7E 100%)',
+                                color: 'white',
+                                padding: '1rem 2.5rem',
+                                border: 'none',
+                                borderRadius: '50px',
+                                fontSize: '1.1rem',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '12px',
+                                boxShadow: '0 4px 15px rgba(37, 211, 102, 0.3)',
+                                transition: 'transform 0.2s',
+                                textDecoration: 'none',
+                                fontWeight: 600
+                            }}>
+                                <Icon name="message-square" size={24} /> Chat on WhatsApp
                             </a>
-                            <a href="tel:+27743763549" className="btn-primary" style={{ background: 'var(--primary-navy)', color: 'var(--white)', padding: '0.5rem 1.5rem', fontSize: '0.9rem' }}>
-                                Call Now
+                            <a href="tel:+27743763549" className="btn-elite action-bar-btn" style={{
+                                background: 'rgba(255,255,255,0.05)',
+                                color: 'white',
+                                padding: '1rem 2.5rem',
+                                border: '1px solid rgba(255,255,255,0.2)',
+                                borderRadius: '50px',
+                                fontSize: '1.1rem',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '12px',
+                                backdropFilter: 'blur(10px)',
+                                transition: 'background 0.2s',
+                                textDecoration: 'none',
+                                fontWeight: 600
+                            }}>
+                                <PhoneIcon /> Call Dispatch
                             </a>
                         </div>
                     </div>
                 </div>
+                <style>{`
+                    .action-bar-inner {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        flex-wrap: wrap;
+                        gap: 2rem;
+                    }
+                    .action-bar-text {
+                        display: flex;
+                        flex-direction: column;
+                    }
+                    .action-bar-buttons {
+                        display: flex;
+                        gap: 1.5rem;
+                        flex-wrap: wrap;
+                    }
+
+                    @media (max-width: 900px) {
+                        .action-bar-inner {
+                            flex-direction: column;
+                            text-align: center;
+                            gap: 2rem;
+                        }
+                        .action-bar-text {
+                            align-items: center;
+                        }
+                        .action-bar-buttons {
+                            justify-content: center;
+                            width: 100%;
+                        }
+                        .action-bar-btn {
+                            width: 100%;
+                            justify-content: center;
+                            max-width: 350px; /* Prevent too wide on tablets */
+                        }
+                    }
+                `}</style>
 
                 <footer id="contact" className="footer">
                     <div className="container">
                         <div className="footer-grid">
                             {/* Col 1: Brand & Trust */}
                             <div className="reveal">
-                                <img src="public/logo_sa.png" className="footer-logo" alt="Bafo Tech Advisory" style={{ background: 'none' }} />
+                                <img src="public/logo_new.png" className="footer-logo" alt="Mvelase Logistics" style={{ background: 'none', height: '180px', width: 'auto' }} />
                                 <p style={{ color: 'rgba(255,255,255,0.9)', maxWidth: '400px', fontSize: '1.1rem', lineHeight: '1.6', marginBottom: '1.5rem' }}>
                                     <strong>Mvelase Logistics (Pty) Ltd</strong> — Moving Mzansi, one trip at a time. From kasi streets to corporate drop offs, we deliver safely, on time, and with care.
                                 </p>
