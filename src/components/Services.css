@@ -1,0 +1,18 @@
+.icon-wrap {
+    width: 80px;
+    height: 80px;
+    background: rgba(0, 26, 77, 0.03);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-navy);
+    margin-bottom: 2.5rem;
+    transition: var(--transition-smooth);
+}
+
+.card:hover .icon-wrap {
+    background: var(--primary-orange);
+    color: var(--white);
+    transform: scale(1.1);
+}

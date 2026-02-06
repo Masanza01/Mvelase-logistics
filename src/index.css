@@ -1,0 +1,137 @@
+/* STRICT MZANSI DESIGN SYSTEM (Dark Mode Pivot) */
+:root {
+  /* 85% - THE IMMERSIVE NAVY (Authority) */
+  --primary-navy: #001A4D;
+  --bg-main: #001A4D;
+  /* Was Sand */
+  --bg-card: #022055;
+  /* Slightly lighter navy for cards */
+
+  /* 15% - THE LIGHT (Readability) */
+  --text-body: #E2E8F0;
+  /* Light Grey */
+  --text-heading: #FFFFFF;
+  /* White */
+  --white: #FFFFFF;
+
+  /* 5% - THE ACTIVATOR */
+  --primary-orange: #FF6600;
+  --taxi-yellow: #FFC400;
+  --shweshwe-blue: #2C5AA0;
+
+  /* UTILS */
+  --glass-light: rgba(0, 26, 77, 0.8);
+  /* Dark Glass */
+  --font-main: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --transition-smooth: all 0.3s ease;
+  --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-main);
+  color: var(--text-body);
+  background: var(--bg-main);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* TYPOGRAPHY */
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--text-heading);
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  text-align: center;
+  margin-bottom: 3rem;
+  color: var(--white);
+}
+
+/* UTILITIES */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.section {
+  padding: 8rem 0;
+}
+
+.grid {
+  display: grid;
+  gap: 2rem;
+}
+
+.grid-2 {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.grid-3 {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+/* ANIMATIONS */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: var(--transition-smooth);
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.btn-primary {
+  background: var(--primary-orange);
+  color: var(--white);
+  border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  background: #e65c00;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--white);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.btn-outline:hover {
+  background: var(--white);
+  color: var(--primary-navy);
+  border-color: var(--white);
+}

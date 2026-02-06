@@ -1,0 +1,42 @@
+.the-standard {
+    padding: 10rem 0;
+}
+
+.standard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 4rem;
+    text-align: center;
+}
+
+.standard-item {
+    padding: 4rem 3rem;
+}
+
+.standard-value {
+    font-size: 4rem;
+    font-weight: 900;
+    color: var(--primary-orange);
+    margin-bottom: 1rem;
+    line-height: 1;
+}
+
+.standard-label {
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--white);
+}
+
+.standard-item p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+
+@media (max-width: 768px) {
+    .the-standard {
+        padding: 6rem 0;
+    }
+}

@@ -1,0 +1,1514 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mvelase Logistics | Superior Nationwide Solutions</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- React & Babel CDNs -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* PSYCHOLOGY OF LOGISTICS PALETTE */
+        :root {
+            /* 
+               TRUST ANCHOR (Deep Navy): #001233 
+               Psychology: Evokes authority, stability, and premium service. 
+               Deeper than standard blue to suggest "established expertise".
+            */
+            --primary-navy: #001233;
+            --bg-main: #001233;
+
+            /* 
+               IMPULSE TRIGGER (Safety Orange): #FF4500 
+               Psychology: Creates urgency without aggression. High visibility.
+               Stimulates "Book Now" behavior. 
+            */
+            --primary-orange: #FF4500;
+
+            /* 
+               TRUST SIGNAL (Growth Green): #28C76F 
+               Psychology: "Go", "Safe", "Money". Used for success states and value.
+            */
+            --success-green: #28C76F;
+
+            /* 
+               CLARITY (Pure White & Cool Grey): 
+               Psychology: Cleanliness and precision. Essential for reading logistics specs.
+            */
+            --white: #FFFFFF;
+            --text-body: #E2E8F0;
+            --text-heading: #FFFFFF;
+
+            /* SUBTLETY */
+            --bg-card: #011840;
+            /* Slightly lighter navy for depth perception */
+            --glass-light: rgba(0, 18, 51, 0.85);
+
+            /* UTILS */
+            --font-main: 'Inter', sans-serif;
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-main);
+            color: var(--text-body);
+            background: var(--bg-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ANIMATIONS */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: var(--transition-smooth);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* CARD POLISH */
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            border-color: rgba(255, 102, 0, 0.2);
+        }
+
+        /* TYPOGRAPHY */
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            color: var(--text-heading);
+        }
+
+        h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: var(--white);
+            /* White headings on Dark BG */
+            margin-bottom: 3rem;
+            text-align: center;
+            font-weight: 800;
+        }
+
+        p {
+            font-size: 1.1rem;
+            color: var(--text-body);
+            font-weight: 400;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* HEADER */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 90px;
+            background: var(--glass-light);
+            /* Dark glass */
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            z-index: 2000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition-smooth);
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+        }
+
+        .logo-img {
+            height: 65px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-img:hover {
+            transform: scale(1.02);
+        }
+
+        .nav-desktop {
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--white);
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-orange);
+            transition: var(--transition-smooth);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* HERO REIMAGINED */
+        .hero {
+            position: relative;
+            height: 90vh;
+            min-height: 700px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            color: var(--white);
+            padding-top: 60px;
+        }
+
+        /* Animated Background Image */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -5%;
+            left: -5%;
+            right: -5%;
+            bottom: -5%;
+            /* Oversize to allow movement */
+            background: url('public/hero_mzansi.png');
+            background-size: cover;
+            background-position: center;
+            z-index: 0;
+            animation: drive 30s linear infinite alternate;
+        }
+
+        /* Gradient Overlay */
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0, 26, 77, 0.75), rgba(0, 26, 77, 0.6));
+            z-index: 1;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            z-index: 10;
+            position: relative;
+        }
+
+        @keyframes drive {
+            0% {
+                transform: scale(1) translateX(0);
+            }
+
+            100% {
+                transform: scale(1.1) translateX(-30px);
+            }
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary-orange);
+            color: var(--white);
+            padding: 0.6rem 1.2rem;
+            border-radius: 5px;
+            font-weight: 900;
+            font-size: 0.85rem;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 7vw, 5.5rem);
+            margin-bottom: 2rem;
+            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            opacity: 0.95;
+            margin-bottom: 3.5rem;
+            max-width: 700px;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-elite {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.2rem 3rem;
+            font-size: 1.1rem;
+            font-weight: 800;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            text-decoration: none;
+            border: none;
+        }
+
+        .btn-elite-primary {
+            background: var(--primary-orange);
+            color: var(--white);
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-elite-primary:hover {
+            transform: translateY(-2px);
+            background: #e65c00;
+            /* Darker orange hover */
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-elite-outline {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+            margin-left: 1.5rem;
+        }
+
+        .btn-elite-outline:hover {
+            background: var(--white);
+            color: var(--primary-navy);
+            transform: translateY(-5px);
+        }
+
+        /* STRATEGIC QUOTE BRIDGE */
+        .quote-bridge {
+            position: relative;
+            z-index: 100;
+            margin-bottom: 8rem;
+        }
+
+        .quote-card {
+            background: var(--bg-card);
+            /* Lighter Navy Card */
+            padding: 3.5rem;
+            border-radius: 10px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            display: grid;
+            grid-template-columns: repeat(3, 1fr) auto;
+            gap: 2rem;
+            align-items: end;
+            color: var(--white);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quote-card::before {
+            display: none;
+            /* Remove gradient bar */
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .input-group label {
+            color: rgba(255, 255, 255, 0.8);
+            /* Light text for Navy bg */
+        }
+
+        .input-group input,
+        .input-group select {
+            padding: 1.2rem;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            background: var(--white);
+            border-radius: 5px;
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--primary-navy);
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--primary-orange);
+        }
+
+        /* SOLUTIONS SECTION */
+        .section {
+            padding: 8rem 0;
+            /* Balanced white space */
+        }
+
+        .solutions-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .solution-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: var(--transition-smooth);
+        }
+
+        .solution-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 102, 0, 0.3);
+        }
+
+        .solution-item[open] {
+            background: var(--bg-card);
+            border-color: var(--primary-orange);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.3);
+        }
+
+        .solution-summary {
+            padding: 1.2rem 1.5rem;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--white);
+            user-select: none;
+            position: relative;
+        }
+
+        .solution-summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .solution-summary::after {
+            content: '+';
+            margin-left: auto;
+            color: var(--primary-orange);
+            font-weight: 300;
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .solution-item[open] .solution-summary::after {
+            transform: rotate(45deg);
+        }
+
+        .solution-content {
+            padding: 0 1.5rem 1.5rem 3.8rem;
+            /* Aligned with text start */
+            color: var(--text-body);
+            line-height: 1.6;
+            font-size: 1.05rem;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .icon-bullet {
+            width: 28px;
+            height: 28px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-orange);
+            flex-shrink: 0;
+        }
+
+        /* COMMITMENT SECTION */
+        .commitment {
+            background: var(--primary-navy);
+            color: var(--white);
+        }
+
+        .commitment-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8rem;
+            align-items: center;
+        }
+
+        .commitment-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .stat-box {
+            border-left: 4px solid var(--shweshwe-blue);
+            /* Shweshwe Accent */
+            padding-left: 2rem;
+        }
+
+        .stat-value {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--taxi-yellow);
+            /* Taxi Yellow Highlight */
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            font-weight: 700;
+        }
+
+        /* FLEET SECTION */
+        .fleet-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .fleet-card {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            border: none;
+        }
+
+        .fleet-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 40px rgba(0, 0, 0, 0.3);
+            z-index: 10;
+        }
+
+        .card-badge-group {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            background: var(--primary-orange);
+            color: white;
+            padding: 8px 16px;
+            font-size: 0.85rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            z-index: 5;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+        }
+
+        .card-badge-type {
+            display: none;
+            /* User didn't ask for this, cleaner look */
+        }
+
+        .fleet-img-container {
+            background: #ffffff;
+            /* Pure white background as requested */
+            padding: 2rem;
+            height: 280px;
+            /* Taller image area */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .fleet-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.15));
+            /* nicer shadow for floating car effect */
+            transition: transform 0.5s ease;
+        }
+
+        .fleet-card:hover .fleet-img {
+            transform: scale(1.05);
+        }
+
+        .fleet-details {
+            padding: 1rem;
+            background: #001A4D;
+            /* Explicit matching blue */
+            color: var(--white);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 60px;
+            /* Fixed height for consistency */
+            flex: 0;
+            border-top: none;
+            /* Removed accent */
+        }
+
+        /* GRID UTILITIES */
+        .grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .grid-4 {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        @media (max-width: 900px) {
+
+            .grid-3,
+            .grid-4 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .grid-3,
+            .grid-4 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .fleet-title {
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--white);
+            margin: 0;
+        }
+
+        .specs-grid,
+        .spec-item,
+        .spec-label,
+        .spec-value,
+        .fleet-meta,
+        .btn-book {
+            display: none !important;
+            /* Force hide everything else */
+        }
+
+        @media (max-width: 768px) {
+            .fleet-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* FOOTER */
+        .footer {
+            background: #000B26;
+            /* Darker than Main Navy */
+            color: var(--white);
+            padding: 8rem 0 4rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 6rem;
+        }
+
+        .footer-logo {
+            height: 100px;
+            margin-bottom: 2.5rem;
+            /* Logo is already suitable for dark bg */
+        }
+
+        .footer h4 {
+            color: var(--primary-orange);
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            font-size: 1rem;
+            font-weight: 800;
+        }
+
+        .footer-link {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 1.2rem;
+            transition: 0.3s;
+        }
+
+        .footer-link:hover {
+            color: var(--white);
+            padding-left: 10px;
+        }
+
+        @media (max-width: 1024px) {
+            .nav-desktop {
+                display: none;
+            }
+
+            .commitment-grid {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 4rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 3.5rem;
+            }
+
+            .btn-elite-outline {
+                margin-left: 0;
+                margin-top: 1.5rem;
+                width: 100%;
+            }
+
+            .btn-elite-primary {
+                width: 100%;
+            }
+
+            .quote-card {
+                padding: 2.5rem;
+            }
+
+            .solutions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .fleet-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        window.onerror = function (message, source, lineno, colno, error) {
+            alert("DEBUG ERROR: " + message + " at line " + lineno);
+        };
+        const { useState, useEffect, useRef } = React;
+
+        const useReveal = () => {
+            useEffect(() => {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('active');
+                        }
+                    });
+                }, { threshold: 0.1 });
+
+                document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+                return () => observer.disconnect();
+            }, []);
+        };
+
+        const Icon = ({ name, size = 24 }) => {
+            useEffect(() => { lucide.createIcons(); }, []);
+            return <i data-lucide={name} style={{ width: size, height: size }}></i>;
+        };
+
+        const Header = () => (
+            <header className="header">
+                <div className="container header-inner">
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+                        <div style={{
+                            background: 'white',
+                            padding: '8px 15px',
+                            borderRadius: '8px',
+                            boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
+                            display: 'flex',
+                            alignItems: 'center'
+                        }}>
+                            <img src="public/logo_sa.png" className="logo-img" alt="Mvelase" onClick={() => window.scrollTo(0, 0)} style={{ height: '45px' }} />
+                        </div>
+                        <span style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--primary-orange)', letterSpacing: '-0.5px', fontStyle: 'italic' }}>Lets move Mzansi!</span>
+                    </div>
+                    <nav className="nav-desktop">
+                        <a href="#quote" className="nav-link">BOOK NOW</a>
+                        <a href="#fleet" className="nav-link">VEHICLES</a>
+                        <a href="#quote" className="nav-link">QUOTE PREDICTION</a>
+                        <a href="#contact" className="nav-link">CONTACT US</a>
+                        <a href="#blog" className="nav-link">BLOG</a>
+                        <a href="https://wa.me/27743763549" className="btn-elite btn-elite-primary" style={{ padding: '0.8rem 1.8rem', fontSize: '0.9rem', animation: 'pulse 2s infinite' }}>
+                            <Icon name="message-square" size={18} /> Request Execution
+                        </a>
+                    </nav>
+                </div>
+                <style>{`
+                    @keyframes pulse {
+                        0% { box-shadow: 0 0 0 0 rgba(255, 69, 0, 0.7); }
+                        70% { box-shadow: 0 0 0 10px rgba(255, 69, 0, 0); }
+                        100% { box-shadow: 0 0 0 0 rgba(255, 69, 0, 0); }
+                    }
+                `}</style>
+            </header>
+        );
+
+        const Hero = () => (
+            <section className="hero" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden' }}>
+                <div className="container" style={{ position: 'relative', zIndex: 2 }}>
+                    <div className="reveal glass-panel" style={{
+                        maxWidth: '900px',
+                        margin: '0 auto',
+                        padding: '2.5rem 2rem',
+                        textAlign: 'center',
+                        backdropFilter: 'blur(16px)',
+                        backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                        border: '1px solid rgba(255, 255, 255, 0.15)',
+                        borderRadius: '24px',
+                        boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)'
+                    }}>
+                        <div className="floating-pin" style={{ fontSize: '3rem', marginBottom: '1rem', display: 'inline-block' }}>📍</div>
+
+                        <span className="hero-badge" style={{
+                            background: 'rgba(255,255,255,0.15)',
+                            color: '#fff',
+                            border: '1px solid rgba(255,255,255,0.25)',
+                            padding: '0.5rem 1.5rem',
+                            borderRadius: '50px',
+                            backdropFilter: 'blur(4px)',
+                            marginBottom: '1.5rem',
+                            display: 'inline-block',
+                            fontWeight: 700,
+                            letterSpacing: '1px',
+                            fontSize: '0.9rem'
+                        }}>LOCAL IS LEKKER</span>
+
+                        <h1 className="hero-title" style={{ fontSize: 'clamp(2.5rem, 5.5vw, 4.5rem)', lineHeight: '1.05', marginBottom: '1.5rem', textTransform: 'uppercase' }}>
+                            From <span style={{ color: '#fff' }}>Kasi</span> to the <br />
+                            <span className="text-stroke" style={{ color: 'transparent', WebkitTextStroke: '2px #fff' }}>Suburbs.</span>
+                        </h1>
+
+                        <h2 style={{
+                            fontSize: 'clamp(1.5rem, 3.5vw, 2.5rem)',
+                            fontWeight: 900,
+                            background: 'linear-gradient(90deg, #FF4500, #FF8C00)',
+                            WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent',
+                            marginBottom: '2rem',
+                            fontStyle: 'italic'
+                        }}>
+                            We Move Mzansi.
+                        </h2>
+
+                        <p className="hero-subtitle" style={{ fontSize: '1.1rem', color: 'rgba(255,255,255,0.9)', maxWidth: '650px', margin: '0 auto 2.5rem', lineHeight: '1.6', textShadow: '0 2px 4px rgba(0,0,0,0.3)' }}>
+                            Whether it's a quick load, staff transport, moving your home or you are traveling Mvelase is your premium local logistics partner.
+                        </p>
+
+                        <div className="hero-actions" style={{ justifyContent: 'center' }}>
+                            <a href="#quote" className="btn-elite btn-elite-primary" style={{ padding: '1.2rem 3.5rem', fontSize: '1.2rem', background: '#FF4500', border: 'none', boxShadow: '0 10px 30px rgba(255, 69, 0, 0.4)', minWidth: '250px' }}>Get Strategic Quote</a>
+                        </div>
+                    </div>
+                </div>
+                <style>{`
+                    .glass-panel { animation: slideUp 1s ease-out; }
+                    .floating-pin { animation: float 3s ease-in-out infinite; }
+                    
+                    @keyframes float {
+                        0% { transform: translateY(0px); }
+                        50% { transform: translateY(-10px); }
+                        100% { transform: translateY(0px); }
+                    }
+                    @keyframes slideUp {
+                        from { opacity: 0; transform: translateY(30px); }
+                        to { opacity: 1; transform: translateY(0); }
+                    }
+                    .text-stroke {
+                        -webkit-text-stroke: 1px rgba(255,255,255,0.8);
+                    }
+                    @media (min-width: 768px) {
+                        .text-stroke { -webkit-text-stroke: 2px #fff; }
+                    }
+                `}</style>
+            </section>
+        );
+
+        const QuoteBridge = () => {
+            const [data, setData] = useState({ pickup: '', dropoff: '', type: 'Contract Haulage' });
+            const handleOrder = (e) => {
+                e.preventDefault();
+                const msg = `LOGISTICS ENQUIRY:\nReference: MVELASE-${Date.now()}\nPickup: ${data.pickup}\nDestination: ${data.dropoff}\nCategory: ${data.type}`;
+                window.open(`https://wa.me/27743763549?text=${encodeURIComponent(msg)}`);
+            };
+
+            return (
+                <div id="quote" className="container quote-bridge reveal">
+                    <form className="quote-card" onSubmit={handleOrder}>
+                        <div className="input-group">
+                            <label>Origin Point</label>
+                            <input type="text" placeholder="City or Region" onChange={e => setData({ ...data, pickup: e.target.value })} required />
+                        </div>
+                        <div className="input-group">
+                            <label>Destination Reach</label>
+                            <input type="text" placeholder="Nationwide Target" onChange={e => setData({ ...data, dropoff: e.target.value })} required />
+                        </div>
+                        <div className="input-group">
+                            <label>Service Category</label>
+                            <select onChange={e => setData({ ...data, type: e.target.value })}>
+                                <option>Contract Haulage</option>
+                                <option>Enterprise Group Transit</option>
+                                <option>Specialized Cargo</option>
+                                <option>Inter-City Logistics</option>
+                            </select>
+                        </div>
+                        <button type="submit" className="btn-elite btn-elite-primary" style={{ height: '62px', width: '100%' }}>Initiate Quote</button>
+                    </form>
+                </div>
+            );
+        };
+
+        const Solutions = () => (
+            <section id="solutions" className="section">
+                <div className="container">
+                    <h2 className="reveal" style={{ marginBottom: '3rem', textAlign: 'center' }}>Real Solutions for Real People</h2>
+                    <div className="solutions-list">
+                        {[
+                            { icon: 'truck', title: 'Bakkie Hire & Loads', text: 'Got a heavy load? Our bakkies are ready to move your goods, furniture, or equipment.' },
+                            { icon: 'users', title: 'Staff Transport', text: 'Safe and reliable shuttles for your team. Morning pickups and evening drop-offs sorted.' },
+                            { icon: 'map', title: 'Long Distance Gigs', text: 'Moving to another province? We handle inter-city trips with care and speed.' },
+                            { icon: 'shield-check', title: 'Safe & Secure', text: 'Our drivers are vetted locals who know the routes and keep your stuff safe.' }
+                        ].map((s, i) => (
+                            <details key={i} className="solution-item reveal">
+                                <summary className="solution-summary">
+                                    <div className="icon-bullet">
+                                        <Icon name={s.icon} size={24} />
+                                    </div>
+                                    <span>{s.title}</span>
+                                </summary>
+                                <div className="solution-content">
+                                    {s.text}
+                                </div>
+                            </details>
+                        ))}
+                    </div>
+                </div>
+            </section>
+        );
+
+
+        const Commitment = () => (
+            <section id="about" className="section commitment">
+                <div className="container commitment-grid">
+                    <div className="reveal">
+                        <h2 style={{ color: 'var(--white)', textAlign: 'left', marginBottom: '2rem' }}>Born in Gauteng.<br />Made for You.</h2>
+                        <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1.25rem', marginBottom: '2.5rem', lineHeight: '1.8' }}>
+                            We aren't just a transport company; we are your neighbors. Mvelase Logistics started right here in Gauteng, understanding the hustle and the need for a reliable partner.
+                        </p>
+                        <p style={{ color: 'var(--white)', fontSize: '1.1rem', marginBottom: '3rem', fontStyle: 'italic', borderLeft: '4px solid #FFB800', paddingLeft: '1.5rem' }}>
+                            "We know the back routes in Soweto, the shortcuts in Sandton, and the busy streets of Pretoria. When you hire us, you get a driver who knows the kasi and the suburbs like the back of their hand."
+                        </p>
+                        <div className="commitment-stats">
+                            <div className="stat-box">
+                                <span className="stat-value">100%</span>
+                                <span className="stat-label">Gauteng Specialization</span>
+                            </div>
+                            <div className="stat-box">
+                                <span className="stat-value">24/7</span>
+                                <span className="stat-label">Local Dispatch</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="reveal">
+                        <img src="public/born_in_gauteng.jpg" style={{ width: '100%', borderRadius: '10px', boxShadow: '0 30px 60px rgba(0,0,0,0.3)' }} alt="Passengers in shuttle" />
+                    </div>
+                </div>
+            </section>
+        );
+
+
+        const TruckIcon = () => (
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10 17h4V5H2v12h3" /><path d="M20 17h2v-3.34a4 4 0 0 0-1.17-2.83L19 9h-5" /><path d="M14 17h1" /><circle cx="7.5" cy="17.5" r="2.5" /><circle cx="17.5" cy="17.5" r="2.5" /></svg>
+        );
+
+        const UsersIcon = () => (
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg>
+        );
+
+        const Fleet = () => {
+            const [activeTab, setActiveTab] = useState('cargo');
+
+            const passengerFleet = [
+                { name: 'Hyundai Staria', group: 'Private VIP', type: 'Automatic', specs: [{ l: 'Capacity', v: '9 Passengers' }], liability: 'R5,000', extra: 'R5.50/km', img: 'public/studio_staria_white.png' },
+                { name: 'Suzuki Ertiga', group: 'Staff', type: 'Manual', specs: [{ l: 'Capacity', v: '7 Passengers' }], liability: 'R3,000', extra: 'R2.50/km', img: 'public/studio_ertiga_white.png' },
+                { name: 'Hyundai Accent', group: 'Economy', type: 'Manual', specs: [{ l: 'Capacity', v: '4 Passengers' }], liability: 'R2,500', extra: 'R1.90/km', img: 'public/studio_accent_white.png' },
+                { name: 'Toyota Fortuner', group: 'Executive', type: 'Automatic', specs: [{ l: 'Capacity', v: '7 Passengers' }], liability: 'R8,000', extra: 'R8.50/km', img: 'public/studio_fortuner_white.png' },
+                { name: 'Quantum Siyaya', group: 'Group', type: 'Manual', specs: [{ l: 'Capacity', v: '15 Passengers' }], liability: 'R4,000', extra: 'R3.50/km', img: 'public/studio_quantum_modern.png' }
+            ];
+
+            const commercialFleet = [
+                { name: 'Nissan Navara', group: '1 Tonner', type: 'Manual', specs: [{ l: 'Max Load', v: '980 kg' }], liability: 'R4,500', extra: 'R3.50/km', img: 'public/studio_navara_white.png' },
+                { name: 'Nissan NP200', group: 'Half Ton', type: 'Manual', specs: [{ l: 'Max Load', v: '800 kg' }], liability: 'R3,000', extra: 'R2.50/km', img: 'public/studio_np200_uploaded.png' },
+                { name: 'Hyundai H100', group: '1.5 Ton', type: 'Manual', specs: [{ l: 'Max Load', v: '1.3 Ton' }], liability: 'R4,000', extra: 'R3.80/km', img: 'public/studio_drop_side_white.png' },
+                { name: 'Isuzu 4 Ton', group: 'Medium', type: 'Manual', specs: [{ l: 'Max Load', v: '4 Ton' }], liability: 'R6,000', extra: 'R5.00/km', img: 'public/studio_truck_white.png' },
+                { name: 'UD 8 Tonner', group: 'Heavy', type: 'Manual', specs: [{ l: 'Max Load', v: '8 Ton' }], liability: 'R8,000', extra: 'R6.50/km', img: 'public/studio_truck_white.png' },
+            ];
+
+            const activeFleet = activeTab === 'passenger' ? passengerFleet : commercialFleet;
+
+            return (
+                <section id="fleet" className="section" style={{ background: 'var(--bg-main)' }}>
+                    <div className="container">
+                        <h2 className="reveal">Select Your Fleet Category</h2>
+                        <p style={{ textAlign: 'center', marginBottom: '4rem', maxWidth: '800px', margin: '0 auto 4rem', color: 'var(--text-body)' }}>
+                            We have the right vehicle for every mission. **Click a card below** to switch categories.
+                        </p>
+
+                        <div className="reveal" style={{ display: 'flex', justifyContent: 'center', gap: '2rem', marginBottom: '5rem', flexWrap: 'wrap' }}>
+                            <div
+                                onClick={() => setActiveTab('cargo')}
+                                className="card-hover"
+                                style={{
+                                    padding: '2rem 3rem',
+                                    borderRadius: '16px',
+                                    border: activeTab === 'cargo' ? '3px solid var(--primary-orange)' : '1px solid rgba(255,255,255,0.1)',
+                                    background: activeTab === 'cargo' ? 'rgba(255, 102, 0, 0.15)' : 'var(--bg-card)',
+                                    color: activeTab === 'cargo' ? 'var(--primary-orange)' : 'var(--white)',
+                                    cursor: 'pointer',
+                                    transition: 'all 0.3s ease',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '1.5rem',
+                                    minWidth: '280px',
+                                    justifyContent: 'center'
+                                }}
+                            >
+                                <TruckIcon />
+                                <div style={{ textAlign: 'center' }}>
+                                    <span style={{ fontSize: '1.4rem', fontWeight: 800, display: 'block' }}>Cargo Fleet</span>
+                                </div>
+                            </div>
+
+                            <div
+                                onClick={() => setActiveTab('passenger')}
+                                className="card-hover"
+                                style={{
+                                    padding: '2rem 3rem',
+                                    borderRadius: '16px',
+                                    border: activeTab === 'passenger' ? '3px solid var(--primary-orange)' : '1px solid rgba(255,255,255,0.1)',
+                                    background: activeTab === 'passenger' ? 'rgba(255, 102, 0, 0.15)' : 'var(--bg-card)',
+                                    color: activeTab === 'passenger' ? 'var(--primary-orange)' : 'var(--white)',
+                                    cursor: 'pointer',
+                                    transition: 'all 0.3s ease',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '1.5rem',
+                                    minWidth: '280px',
+                                    justifyContent: 'center'
+                                }}
+                            >
+                                <UsersIcon />
+                                <div style={{ textAlign: 'center' }}>
+                                    <span style={{ fontSize: '1.4rem', fontWeight: 800, display: 'block' }}>Passenger Fleet</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="grid grid-3" style={{ gap: '2rem', animation: 'fadeIn 0.5s ease' }}>
+                            {activeFleet.map((v, i) => (
+                                <div key={i} className="fleet-card reveal">
+                                    <div className="fleet-details" style={{ borderRadius: '12px 12px 0 0', height: '50px' }}>
+                                        <h3 className="fleet-title" style={{ fontSize: '1rem' }}>{v.name}</h3>
+                                    </div>
+                                    <div className="fleet-img-container" style={{ borderRadius: '0 0 12px 12px' }}>
+                                        <img src={v.img} alt={v.name} className="fleet-img" />
+                                        <div className="card-badge-group">{v.group}</div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        <div style={{ textAlign: 'center', marginTop: '4rem' }}>
+                            <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.9rem' }}>* Vehicle availability subject to booking schedule. Images for illustration.</p>
+                        </div>
+                    </div>
+                </section>
+            );
+
+
+        };
+
+
+        const PhoneIcon = () => (
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+        );
+
+        const MailIcon = () => (
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+        );
+
+        const MapPinIcon = () => (
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+        );
+
+        const ClockIcon = () => (
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        );
+
+        const TikTokIcon = () => (
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"></path></svg>
+        );
+
+        const Footer = () => (
+            <>
+                {/* Quick CTA Strip */}
+                <div style={{ background: 'var(--primary-orange)', padding: '1rem 0' }}>
+                    <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
+                        <span style={{ color: 'var(--primary-navy)', fontWeight: 800, fontSize: '1.1rem' }}>Need a quick quote?</span>
+                        <div style={{ display: 'flex', gap: '1rem' }}>
+                            <a href="https://wa.me/27743763549" className="btn-primary" style={{ background: 'var(--white)', color: 'var(--primary-orange)', padding: '0.5rem 1.5rem', fontSize: '0.9rem' }}>
+                                Chat on WhatsApp
+                            </a>
+                            <a href="tel:+27743763549" className="btn-primary" style={{ background: 'var(--primary-navy)', color: 'var(--white)', padding: '0.5rem 1.5rem', fontSize: '0.9rem' }}>
+                                Call Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <footer id="contact" className="footer">
+                    <div className="container">
+                        <div className="footer-grid">
+                            {/* Col 1: Brand & Trust */}
+                            <div className="reveal">
+                                <img src="public/logo_sa.png" className="footer-logo" alt="Bafo Tech Advisory" style={{ background: 'none' }} />
+                                <p style={{ color: 'rgba(255,255,255,0.9)', maxWidth: '400px', fontSize: '1.1rem', lineHeight: '1.6', marginBottom: '1.5rem' }}>
+                                    <strong>Mvelase Logistics (Pty) Ltd</strong> — Moving Mzansi, one trip at a time. From kasi streets to corporate drop offs, we deliver safely, on time, and with care.
+                                </p>
+                                <div style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.6)', marginBottom: '1.5rem' }}>
+                                    <p style={{ margin: '0.2rem 0' }}><strong>Mon to Sat:</strong> 06:00–20:00</p>
+                                    <p style={{ margin: '0.2rem 0' }}><strong>Sun/Public Holidays:</strong> On request</p>
+                                </div>
+                                <p style={{ fontSize: '0.85rem', color: 'var(--primary-orange)', fontWeight: 600 }}>
+                                    Nationwide • Gauteng based
+                                </p>
+                            </div>
+
+                            {/* Col 2: Services */}
+                            <div className="reveal">
+                                <h4 style={{ color: 'var(--white)', marginBottom: '1.5rem' }}>Services</h4>
+                                <a href="#" className="footer-link">Bakkie for Hire</a>
+                                <a href="#" className="footer-link">Township Deliveries</a>
+                                <a href="#" className="footer-link">Long Distance</a>
+                                <a href="#" className="footer-link">Staff Transport</a>
+                                <a href="#fleet" className="footer-link">Our Fleet</a>
+                            </div>
+
+                            {/* Col 3: Connect */}
+                            <div className="reveal">
+                                <h4 style={{ color: 'var(--white)', marginBottom: '1.5rem' }}>Connect</h4>
+
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                                    <a href="https://wa.me/27743763549" className="footer-link" style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', fontSize: '1rem' }}>
+                                        <div style={{ color: '#25D366' }}><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" /></svg></div>
+                                        <span>WhatsApp</span>
+                                    </a>
+
+                                    <a href="#" className="footer-link" style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', fontSize: '1rem' }}>
+                                        <div style={{ color: '#00f2ea' }}><TikTokIcon /></div>
+                                        <span>TikTok</span>
+                                    </a>
+
+                                    <a href="tel:+27743763549" className="footer-link" style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', fontSize: '1.1rem', fontWeight: 700, color: 'var(--white)' }}>
+                                        <div style={{ color: 'var(--primary-orange)' }}><PhoneIcon /></div>
+                                        <span>+27 74 376 3549</span>
+                                    </a>
+
+                                    <a href="mailto:info@mvelaselogistics.co.za" className="footer-link" style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', fontSize: '1rem' }}>
+                                        <div style={{ color: 'var(--primary-orange)' }}><MailIcon /></div>
+                                        <span>info@mvelaselogistics.co.za</span>
+                                    </a>
+
+                                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.8rem', marginTop: '0.5rem' }}>
+                                        <div style={{ color: 'var(--primary-orange)', marginTop: '2px' }}><MapPinIcon /></div>
+                                        <span style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.7)', lineHeight: '1.4' }}>
+                                            Gauteng, South Africa<br />
+                                            <span style={{ fontSize: '0.85rem', opacity: 0.8 }}>(Nationwide trips)</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Bottom Bar */}
+                        <div style={{ textAlign: 'center', marginTop: '6rem', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '2rem' }}>
+                            <p style={{ color: 'var(--white)', fontSize: '1rem', marginBottom: '0.5rem', fontWeight: 500 }}>
+                                Professional drivers • Safe, clean vehicles • Reliable dispatch
+                            </p>
+                            <div style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.85rem' }}>
+                                <span style={{ marginRight: '10px' }}>&copy; 2026 Mvelase Logistics (Pty) Ltd.</span>
+                                <span><a href="#" style={{ color: 'inherit', textDecoration: 'none', margin: '0 5px' }}>Privacy Policy</a> • <a href="#" style={{ color: 'inherit', textDecoration: 'none', margin: '0 5px' }}>Terms</a></span>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </>
+        );
+
+
+
+        const AvailabilityTicker = () => (
+            <div style={{ background: '#000', color: '#fff', fontSize: '0.85rem', padding: '0.5rem 0', overflow: 'hidden', whiteSpace: 'nowrap', position: 'relative', zIndex: 100 }}>
+                <div style={{ display: 'inline-block', animation: 'ticker 20s linear infinite', paddingLeft: '100%' }}>
+                    <span style={{ marginRight: '3rem' }}>✅ <strong>LIVE:</strong> 2 Vans available in Sandton area now.</span>
+                    <span style={{ marginRight: '3rem' }}>🚚 <strong>RETURN LOAD:</strong> 4 Ton Truck returning from Pretoria to JHB (Discounted Rate).</span>
+                    <span style={{ marginRight: '3rem' }}>⚡ <strong>SPEED:</strong> Drivers available for immediate dispatch in Soweto.</span>
+                    <span style={{ marginRight: '3rem' }}>📅 <strong>BOOKING:</strong> December slots filling up fast!</span>
+                </div>
+                <style>{`
+                    @keyframes ticker {
+                        0% { transform: translateX(0); }
+                        100% { transform: translateX(-100%); }
+                    }
+                `}</style>
+            </div>
+        );
+
+        const QuoteCalculator = () => {
+            const [distance, setDistance] = useState(50);
+            const [vehicle, setVehicle] = useState('1ton');
+            const [pickup, setPickup] = useState('');
+            const [dropoff, setDropoff] = useState('');
+
+            const rates = {
+                '1ton': { base: 650, perKm: 12, label: '1 Ton Bakkie' },
+                '4ton': { base: 1400, perKm: 18, label: '4 Ton Truck' },
+                '8ton': { base: 2800, perKm: 26, label: '8 Ton Truck' },
+                'shuttle': { base: 900, perKm: 16, label: 'Staff Shuttle (Quantum)' }
+            };
+
+            const calculatePrice = () => {
+                const rate = rates[vehicle];
+                const price = rate.base + (distance * rate.perKm);
+                return price.toLocaleString('en-ZA', { style: 'currency', currency: 'ZAR', maximumFractionDigits: 0 });
+            };
+
+            const handleQuote = () => {
+                const msg = `*NEW QUOTE REQUEST* 🚛%0A%0A*Route:* ${pickup || 'N/A'} to ${dropoff || 'N/A'}%0A*Vehicle:* ${rates[vehicle].label}%0A*Distance:* ${distance}km%0A*Est. Cost:* ${calculatePrice()}%0A%0A_Please confirm final price & availability._`;
+                window.open(`https://wa.me/27743763549?text=${msg}`, '_blank');
+            };
+
+            return (
+                <section className="section" style={{ background: 'var(--primary-navy)', padding: '3rem 0', marginTop: '-4rem', position: 'relative', zIndex: 20 }}>
+                    <div className="container">
+                        <div className="reveal" style={{
+                            background: 'var(--bg-card)',
+                            borderRadius: '16px',
+                            padding: '2.5rem',
+                            boxShadow: '0 25px 50px -12px rgba(0,0,0,0.5)',
+                            border: '1px solid rgba(255,255,255,0.1)'
+                        }}>
+                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '2rem', marginBottom: '2rem' }}>
+                                {/* Inputs */}
+                                <div>
+                                    <label style={{ display: 'block', color: 'rgba(255,255,255,0.7)', fontSize: '0.9rem', marginBottom: '0.5rem', fontWeight: 600 }}>Origin Point</label>
+                                    <input type="text" placeholder="e.g. Germiston" value={pickup} onChange={(e) => setPickup(e.target.value)} style={{ width: '100%', padding: '1rem', borderRadius: '8px', border: 'none', background: 'white', color: '#001A4D', fontWeight: 600, fontSize: '1rem' }} />
+                                </div>
+                                <div>
+                                    <label style={{ display: 'block', color: 'rgba(255,255,255,0.7)', fontSize: '0.9rem', marginBottom: '0.5rem', fontWeight: 600 }}>Destination Reach</label>
+                                    <input type="text" placeholder="e.g. Durban" value={dropoff} onChange={(e) => setDropoff(e.target.value)} style={{ width: '100%', padding: '1rem', borderRadius: '8px', border: 'none', background: 'white', color: '#001A4D', fontWeight: 600, fontSize: '1rem' }} />
+                                </div>
+                                <div>
+                                    <label style={{ display: 'block', color: 'rgba(255,255,255,0.7)', fontSize: '0.9rem', marginBottom: '0.5rem', fontWeight: 600 }}>Vehicle Type</label>
+                                    <select value={vehicle} onChange={(e) => setVehicle(e.target.value)} style={{ width: '100%', padding: '1rem', borderRadius: '8px', border: 'none', background: 'white', color: '#001A4D', fontWeight: 600, cursor: 'pointer', fontSize: '1rem' }}>
+                                        {Object.entries(rates).map(([key, data]) => (
+                                            <option key={key} value={key}>{data.label}</option>
+                                        ))}
+                                    </select>
+                                </div>
+                            </div>
+
+                            {/* Adjustable Line (Slider) */}
+                            <div style={{ padding: '2rem', background: 'rgba(255,255,255,0.03)', borderRadius: '12px', marginBottom: '2.5rem', border: '1px solid rgba(255,255,255,0.05)' }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1.5rem', alignItems: 'center' }}>
+                                    <span style={{ color: 'var(--white)', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '8px' }}><Icon name="ruler" size={18} /> Adjust Distance</span>
+                                    <span style={{ color: 'var(--primary-orange)', fontSize: '1.8rem', fontWeight: 900 }}>{distance} km</span>
+                                </div>
+                                <input
+                                    type="range"
+                                    min="1"
+                                    max="1000"
+                                    value={distance}
+                                    onChange={(e) => setDistance(parseInt(e.target.value))}
+                                    className="range-slider"
+                                    style={{ width: '100%', height: '8px', borderRadius: '4px', background: 'rgba(255,255,255,0.1)', outline: 'none', cursor: 'pointer', accentColor: 'var(--primary-orange)' }}
+                                />
+                                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', color: 'rgba(255,255,255,0.4)', marginTop: '0.8rem', fontWeight: 500 }}>
+                                    <span>Local Trip (1km)</span>
+                                    <span>Long Haul (1000km+)</span>
+                                </div>
+                            </div>
+
+                            {/* Result & CTA */}
+                            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '2rem', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '2.5rem' }}>
+                                <div>
+                                    <div style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.6)', marginBottom: '0.4rem', textTransform: 'uppercase', letterSpacing: '1px' }}>Estimated Trip Cost</div>
+                                    <div style={{ fontSize: '3.5rem', fontWeight: 900, color: 'var(--white)', lineHeight: '1', letterSpacing: '-1px' }}>
+                                        {calculatePrice()}
+                                    </div>
+                                    <div style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.3)', marginTop: '0.5rem' }}>*Excludes labour & toll fees</div>
+                                </div>
+                                <button onClick={handleQuote} className="btn-elite btn-elite-primary" style={{ padding: '1.2rem 3.5rem', fontSize: '1.2rem', boxShadow: '0 10px 30px rgba(255, 69, 0, 0.3)' }}>
+                                    Initiate Quote <Icon name="arrow-right" size={20} style={{ marginLeft: '10px' }} />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        const FleetWizard = () => {
+            /*
+            const [selection, setSelection] = useState(null);
+
+            const options = [
+                { icon: '📦', label: 'Small Boxes / Parcels', rec: { name: 'Nissan NP200', img: 'public/studio_bakkie_white.png', desc: 'Perfect for quick, small deliveries.' } },
+                { icon: '🛋️', label: 'Furniture / Appliances', rec: { name: 'Hyundai H100', img: 'public/studio_drop_side_white.png', desc: 'Ideal for home moves and large items.' } },
+                { icon: '👥', label: 'Staff Transport', rec: { name: 'Toyota Quantum', img: 'public/studio_quantum_modern.png', desc: 'Comfortable commute for your team.' } }
+            ];
+
+            const handleSelect = (opt) => {
+                setSelection(opt);
+                setIsAnalyzing(true);
+                // Simulate analysis
+                setTimeout(() => {
+                    setIsAnalyzing(false);
+                    setStep(1);
+                }, 1500);
+            };
+
+            return (
+                <section className="section" style={{ background: 'var(--bg-main)', position: 'relative' }}>
+                    <div className="container" style={{ textAlign: 'center' }}>
+                        <div className="reveal">
+                            <span style={{ color: 'var(--primary-orange)', fontWeight: 700, letterSpacing: '1px' }}>HELP ME CHOOSE</span>
+                            <h2 style={{ color: 'var(--text-header)', marginBottom: '3rem' }}>Not Sure What You Need?</h2>
+                        </div>
+
+                        {step === 0 && !isAnalyzing && (
+                            <div className="reveal grid grid-3" style={{ gap: '1.5rem', maxWidth: '1000px', margin: '0 auto' }}>
+                                {options.map((opt, i) => (
+                                    <div
+                                        key={i}
+                                        onClick={() => handleSelect(opt)}
+                                        className="card-hover"
+                                        style={{
+                                            background: 'var(--bg-card)',
+                                            padding: '2.5rem',
+                                            borderRadius: '20px',
+                                            cursor: 'pointer',
+                                            border: '1px solid rgba(255,255,255,0.05)',
+                                            transition: 'transform 0.3s ease, border-color 0.3s ease'
+                                        }}
+                                    >
+                                        <div style={{ fontSize: '3.5rem', marginBottom: '1.5rem' }}>{opt.icon}</div>
+                                        <h4 style={{ color: 'white', margin: 0, fontSize: '1.2rem' }}>{opt.label}</h4>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+
+                        {isAnalyzing && (
+                            <div className="reveal" style={{ padding: '4rem 0' }}>
+                                <div className="spinner" style={{
+                                    width: '50px',
+                                    height: '50px',
+                                    border: '4px solid rgba(255, 69, 0, 0.3)',
+                                    borderTop: '4px solid #FF4500',
+                                    borderRadius: '50%',
+                                    margin: '0 auto 1.5rem',
+                                    animation: 'spin 1s linear infinite'
+                                }}></div>
+                                <h3 style={{ color: 'var(--white)', fontWeight: 300 }}>Analyzing Logistics Requirements...</h3>
+                                <style>{`@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`}</style>
+                            </div>
+                        )}
+
+                        {step === 1 && selection && !isAnalyzing && (
+                            <div className="reveal" style={{
+                                animation: 'fadeInUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1)',
+                                background: 'rgba(255,255,255,0.03)',
+                                backdropFilter: 'blur(10px)',
+                                maxWidth: '700px',
+                                margin: '0 auto',
+                                padding: '3rem',
+                                borderRadius: '24px',
+                                border: '1px solid rgba(255, 69, 0, 0.3)',
+                                boxShadow: '0 20px 40px rgba(0,0,0,0.4)'
+                            }}>
+                                <div style={{ color: 'var(--primary-orange)', fontWeight: 700, letterSpacing: '1px', marginBottom: '1rem' }}>BEST MATCH FOUND</div>
+                                <h3 style={{ color: 'white', fontSize: '2.5rem', marginBottom: '1rem' }}>{selection.rec.name}</h3>
+                                <img src={selection.rec.img} style={{ width: '100%', maxWidth: '400px', marginBottom: '2rem', filter: 'drop-shadow(0 10px 20px rgba(0,0,0,0.5))' }} alt="Recommendation" />
+                                <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '1.1rem', marginBottom: '2.5rem' }}>{selection.rec.desc}</p>
+
+                                <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
+                                    <button onClick={() => setStep(0)} className="btn-primary" style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.2)', padding: '1rem 2rem' }}>Back</button>
+                                    <a href="#quote" className="btn-elite btn-elite-primary" style={{ padding: '1rem 3rem' }}>Get Quote for This</a>
+                                </div>
+                                <style>{`@keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }`}</style>
+                            </div>
+                        )}
+                    </div>
+                </section>
+            );
+        */
+            const [step, setStep] = useState(0);
+            const [selection, setSelection] = useState(null);
+
+            const options = [
+                { icon: '📦', label: 'Small Boxes / Parcels', rec: { name: 'Nissan NP200', img: 'public/studio_np200_uploaded.png', desc: 'Reliable urban workhorse for quick deliveries.' } },
+                { icon: '🛋️', label: 'Furniture / Appliances', rec: { name: 'Hyundai H100', img: 'public/studio_drop_side_white.png', desc: 'Ideal for home moves and large items.' } },
+                { icon: '👥', label: 'Staff Transport', rec: { name: 'Toyota Quantum', img: 'public/studio_quantum_modern.png', desc: 'Comfortable commute for your team.' } },
+                { icon: '🚙', label: 'Gigs / Traveling', rec: { name: 'Hyundai Staria', img: 'public/studio_staria_white.png', desc: 'Luxury travel for events and small groups.' } }
+            ];
+
+            return (
+                <section className="section" style={{ background: 'var(--bg-main)', position: 'relative' }}>
+                    <div className="container" style={{ textAlign: 'center' }}>
+                        <div className="reveal">
+                            <span style={{ color: 'var(--primary-orange)', fontWeight: 700, letterSpacing: '1px' }}>HELP ME CHOOSE</span>
+                            <h2 style={{ color: 'var(--text-header)', marginBottom: '3rem' }}>Not Sure What You Need?</h2>
+                        </div>
+
+                        <div className="reveal grid grid-4" style={{ gap: '1.5rem', maxWidth: '1000px', margin: '0 auto 3rem' }}>
+                            {options.map((opt, i) => (
+                                <div
+                                    key={i}
+                                    onClick={() => { setSelection(opt); setStep(1); }}
+                                    className="card-hover"
+                                    style={{
+                                        background: 'var(--bg-card)',
+                                        padding: '2.5rem',
+                                        borderRadius: '20px',
+                                        cursor: 'pointer',
+                                        border: selection === opt ? '2px solid var(--primary-orange)' : '1px solid rgba(255,255,255,0.05)',
+                                        transform: selection === opt ? 'scale(1.05)' : 'scale(1)',
+                                        transition: 'all 0.3s ease'
+                                    }}
+                                >
+                                    <div style={{ fontSize: '3.5rem', marginBottom: '1.5rem' }}>{opt.icon}</div>
+                                    <h4 style={{ color: 'white', margin: 0, fontSize: '1.2rem' }}>{opt.label}</h4>
+                                </div>
+                            ))}
+                        </div>
+
+                        {step === 1 && selection && (
+                            <div style={{
+                                animation: 'fadeInUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1)',
+                                background: 'rgba(255,255,255,0.03)',
+                                backdropFilter: 'blur(10px)',
+                                maxWidth: '700px',
+                                margin: '0 auto',
+                                padding: '3rem',
+                                borderRadius: '24px',
+                                border: '1px solid rgba(255, 69, 0, 0.3)',
+                                boxShadow: '0 20px 40px rgba(0,0,0,0.4)',
+                                scrollMarginTop: '100px'  // Helps if we wanted to auto-scroll
+                            }}>
+                                <div style={{ color: 'var(--primary-orange)', fontWeight: 700, letterSpacing: '1px', marginBottom: '1rem' }}>BEST MATCH FOUND</div>
+                                <h3 style={{ color: 'white', fontSize: '2.5rem', marginBottom: '1rem' }}>{selection.rec.name}</h3>
+                                <img src={selection.rec.img} style={{ width: '100%', maxWidth: '400px', marginBottom: '2rem', filter: 'drop-shadow(0 10px 20px rgba(0,0,0,0.5))' }} alt="Recommendation" />
+                                <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '1.1rem', marginBottom: '2.5rem' }}>{selection.rec.desc}</p>
+
+                                <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
+                                    <a href="#quote" className="btn-elite btn-elite-primary" style={{ padding: '1rem 3rem' }}>Get Quote for This</a>
+                                </div>
+                                <style>{`@keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }`}</style>
+                            </div>
+                        )}
+                    </div>
+                </section>
+            );
+        };
+
+        const App = () => {
+            useReveal();
+            return (
+                <div>
+                    <AvailabilityTicker />
+                    <Header />
+                    <Hero />
+                    <QuoteCalculator />
+                    <Solutions />
+                    <Commitment />
+
+                    {/* New Interactive Features */}
+                    <FleetWizard />
+                    <Fleet />
+
+                    <Footer />
+                </div >
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+
+</html>

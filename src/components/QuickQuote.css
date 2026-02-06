@@ -1,0 +1,31 @@
+.quote-bridge {
+    position: relative;
+    z-index: 100;
+    margin-bottom: 8rem;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.75rem;
+    font-weight: 800;
+    font-size: 0.85rem;
+    color: var(--neutral-grey);
+    text-transform: uppercase;
+}
+
+.input-group input,
+.input-group select {
+    width: 100%;
+    padding: 1.2rem;
+    border: 2px solid #E5E9F2;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: var(--transition-smooth);
+}
+
+.input-group input:focus,
+.input-group select:focus {
+    outline: none;
+    border-color: var(--primary-orange);
+}
