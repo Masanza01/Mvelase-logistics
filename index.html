@@ -1334,14 +1334,11 @@
                             <div className="modal-content" style={{
                                 background: '#02102E',
                                 border: '2px solid #FF4500',
-                                borderRadius: '16px',
                                 maxWidth: '600px',
                                 width: '100%',
                                 color: 'white',
                                 position: 'relative',
-                                boxShadow: '0 25px 50px -12px rgba(255, 69, 0, 0.25)',
-                                maxHeight: '100%',
-                                overflowY: 'auto'
+                                boxShadow: '0 25px 50px -12px rgba(255, 69, 0, 0.25)'
                             }}>
                                 <button onClick={() => setShowModal(false)} style={{
                                     position: 'absolute', top: '15px', right: '15px', background: 'transparent',
@@ -1484,6 +1481,9 @@
                         }
                         .modal-content {
                             padding: 2.5rem;
+                            border-radius: 16px;
+                            max-height: 90vh;
+                            overflow-y: auto;
                         }
 
                         @media (max-width: 600px) {
@@ -1494,8 +1494,9 @@
                             .modal-content {
                                 padding: 1.25rem;
                                 border-radius: 8px; /* Tighter on mobile */
-                                max-height: 98vh; /* Ensure it fits in viewport */
-                                overscroll-behavior: contain; /* Stop background scrolling */
+                                max-height: 90vh; /* Ensure it fits in viewport */
+                                overflow-y: auto; /* Allow internal scrolling */
+                                -webkit-overflow-scrolling: touch; /* Smooth iOS scrolling */
                             }
                             h2 {
                                 font-size: 1.2rem !important; /* Force smaller heading */
