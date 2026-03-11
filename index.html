@@ -770,7 +770,196 @@
                 margin-bottom: 2rem !important;
             }
         }
-    </style>
+   /* ============================================================
+   MVELASE LOGISTICS — MOBILE PATCH v2.0
+   Paste this block INSIDE your <style> tag, at the very end,
+   just before the closing </style> tag.
+   ============================================================ */
+
+/* ---- CONTAINER: safe horizontal padding on all screens ---- */
+.container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    box-sizing: border-box;
+}
+
+/* ---- HERO: reduce min-height so it fits small phones ---- */
+@media (max-width: 768px) {
+    .hero {
+        min-height: 580px !important;
+        height: auto !important;
+        padding-top: 100px !important;
+        padding-bottom: 3rem !important;
+    }
+
+    /* Fix hero title — override the previous 3.5rem hardcode */
+    .hero-title {
+        font-size: clamp(2rem, 8vw, 3.2rem) !important;
+        margin-bottom: 1.2rem !important;
+        line-height: 1.15 !important;
+    }
+
+    /* Reduce subtitle that had no mobile treatment */
+    .hero-subtitle {
+        font-size: 1.05rem !important;
+        margin-bottom: 2rem !important;
+        line-height: 1.6 !important;
+    }
+
+    /* Hero glass panel — inline styles can't be overridden directly,
+       so we target the glass-panel class used in Hero JSX */
+    .hero .glass-panel {
+        padding: 1.8rem 1.2rem !important;
+        border-radius: 16px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Hero action buttons: stack vertically, remove min-width */
+    .hero-actions {
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 1rem !important;
+    }
+
+    .hero-actions .btn-elite {
+        width: 100% !important;
+        min-width: unset !important;
+        justify-content: center !important;
+    }
+
+    /* Quote bridge dashboard padding */
+    .quote-dashboard-panel {
+        padding: 1.5rem !important;
+        border-radius: 12px !important;
+    }
+
+    /* Footer padding reduction */
+    .footer {
+        padding: 4rem 0 5rem !important; /* extra bottom for sticky bar */
+    }
+
+    /* Footer grid: 2 cols at 768px */
+    .footer-grid {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 2.5rem !important;
+    }
+
+    /* Stats: keep 2 cols but tighter */
+    .commitment-stats {
+        gap: 2rem !important;
+    }
+
+    .stat-value {
+        font-size: 2.5rem !important;
+    }
+
+    /* Fleet tab buttons should wrap nicely */
+    #fleet .reveal > div[style] {
+        gap: 1rem !important;
+    }
+}
+
+/* ---- EXTRA SMALL PHONES (< 480px) — iPhone SE, Galaxy A) ---- */
+@media (max-width: 480px) {
+
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    /* Hero: even tighter on small phones */
+    .hero-title {
+        font-size: clamp(1.8rem, 9vw, 2.4rem) !important;
+    }
+
+    .hero-subtitle {
+        font-size: 0.95rem !important;
+    }
+
+    .hero-badge {
+        font-size: 0.75rem !important;
+        padding: 0.4rem 0.9rem !important;
+    }
+
+    /* All elite buttons: smaller padding on tiny screens */
+    .btn-elite {
+        padding: 1rem 1.5rem !important;
+        font-size: 0.95rem !important;
+        gap: 0.5rem !important;
+    }
+
+    /* Footer: single column */
+    .footer-grid {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+    }
+
+    /* Quote dashboard */
+    .quote-dashboard-panel {
+        padding: 1.2rem 1rem !important;
+    }
+
+    /* Fleet tab buttons: full width stack */
+    #fleet .card-hover[style*="minWidth: '280px'"] {
+        min-width: unset !important;
+        width: 100% !important;
+        padding: 1.2rem 1rem !important;
+    }
+
+    /* Commitment section */
+    .commitment-stats {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 1.5rem !important;
+    }
+
+    .stat-value {
+        font-size: 2rem !important;
+    }
+
+    /* Section heading sizes */
+    h2 {
+        font-size: clamp(1.6rem, 6vw, 2rem) !important;
+    }
+}
+
+/* ---- STICKY WHATSAPP CTA (mobile only) ---- */
+.sticky-whatsapp-bar {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .sticky-whatsapp-bar {
+        display: flex !important;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 8000;
+        background: #25D366; /* WhatsApp green */
+        color: #ffffff;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 1rem 1.5rem;
+        font-weight: 800;
+        font-size: 1.05rem;
+        text-decoration: none;
+        letter-spacing: 0.03em;
+        box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
+        animation: slideUpBar 0.5s ease-out 1s both;
+    }
+
+    @keyframes slideUpBar {
+        from { transform: translateY(100%); }
+        to { transform: translateY(0); }
+    }
+
+    /* Push page content up so sticky bar doesn't cover footer */
+    body {
+        padding-bottom: 60px !important;
+    }
+} </style>
 </head>
 
 <body>
@@ -2124,7 +2313,17 @@
                     <FleetWizard />
                     <Fleet />
 
-                    <Footer />
+                   <Footer />
+
+                {/* Sticky WhatsApp bar — mobile only */}
+                
+                    href="https://wa.me/27743763549"
+                    className="sticky-whatsapp-bar"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    💬 WhatsApp Us — Get a Quote Now
+                </a>
                 </div >
             );
         };
